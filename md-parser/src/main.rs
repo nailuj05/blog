@@ -73,16 +73,14 @@ fn parse_line(line: &str, codeblock: &mut bool, list: &mut Vec<List>) -> String 
     if ul {
         match list.last().unwrap_or(&List::None) {
             List::None => {
-                html_line.push_str(&format!("<ul>\n<li>{}</li>", &line.trim()));
+                html_line.push_str(&format!("<ul>\n<li>{}</li>", &line.trim()[2..]));
                 list.push(List::Unordered(depth));
             }
             // if last list was ordered
-            List::Ordered(last_depth) => {
-                if last_depth != &depth {
-                    html_line.push_str("</ol>\n");
-                    list.pop();
-                }
-                html_line.push_str(&format!("<ul>\n<li>{}</li>", &line.trim()));
+            List::Ordered(_) => {
+                html_line.push_str("</ol>\n");
+                list.pop();
+                html_line.push_str(&format!("<ul>\n<li>{}</li>", &line.trim()[2..]));
                 list.push(List::Unordered(depth));
             }
             // if last list was also unordered
@@ -94,13 +92,14 @@ fn parse_line(line: &str, codeblock: &mut bool, list: &mut Vec<List>) -> String 
                     html_line.push_str("<ul>\n");
                     list.push(List::Unordered(depth));
                 }
-                html_line.push_str(&format!("<li>{}</li>", &line.trim()));
+                html_line.push_str(&format!("<li>{}</li>", &line.trim()[2..]));
             }
         }
     } else if ol {
+        let n = *&line.trim().chars().take_while(|&c| c != ' ').count() + 1;
         match list.last().unwrap_or(&List::None) {
             List::None => {
-                html_line.push_str(&format!("<ol>\n<li>{}</li>", &line.trim()));
+                html_line.push_str(&format!("<ol>\n<li>{}</li>", &line.trim()[n..]));
                 list.push(List::Ordered(depth));
             }
             // if last list was also ordered
@@ -112,15 +111,13 @@ fn parse_line(line: &str, codeblock: &mut bool, list: &mut Vec<List>) -> String 
                     html_line.push_str("<ol>\n");
                     list.push(List::Ordered(depth));
                 }
-                html_line.push_str(&format!("<li>{}</li>", &line.trim()));
+                html_line.push_str(&format!("<li>{}</li>", &line.trim()[n..]));
             }
             // if last list was unordered
-            List::Unordered(last_depth) => {
-                if last_depth != &depth {
-                    html_line.push_str("</ul>\n");
-                    list.pop();
-                }
-                html_line.push_str(&format!("<ol><li>{}</li>", &line.trim()));
+            List::Unordered(_) => {
+                html_line.push_str("</ul>\n");
+                list.pop();
+                html_line.push_str(&format!("<ol><li>{}</li>", &line.trim()[n..]));
                 list.push(List::Ordered(depth));
             }
         }

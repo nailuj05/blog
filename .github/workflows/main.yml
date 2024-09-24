@@ -1,5 +1,8 @@
 name: Build and Deploy Blog
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -55,6 +58,7 @@ jobs:
       run: |
         cd md-parser
         RUST_BACKTRACE=1 ./target/release/md-parser
+    
     # Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3

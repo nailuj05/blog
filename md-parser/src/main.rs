@@ -1,10 +1,16 @@
 mod file_parser;
 use file_parser::parse;
+use std::env;
 use std::fs;
 use std::io;
 use std::path::Path;
 
 fn main() {
+    match env::current_dir() {
+        Ok(path) => println!("Current working directory: {}", path.display()),
+        Err(e) => eprintln!("Error getting current directory: {}", e),
+    }
+
     let src_path = "./../blog-src";
     let html_path = "./../html";
 

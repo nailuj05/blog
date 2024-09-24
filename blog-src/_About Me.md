@@ -1,0 +1,7 @@
+Hi I am Julian, currently studying computer science at the Technical University of Munich, as well as working as a software engineer for TruPhysics, a robotics company from Stuttgart. 
+I am passionate about doing cool stuff with computers, robots, music and working out. For now this blog is intended to cover the technical stuff and giving me an outlet to write about my projects. 
+From early on I was interested in computers and technologies, first working on games in blender and unity, then moving on to machine learning and systems programming. Working for TruPhysics for the last 4 years has also given me an opportunity to work on robotics and enterprise level software. 
+Since starting university I had a renewed interest in working on smaller side projects, to learn new skills, and have fun doing so. I like working low level in C and Assembly, but also enjoy OCaml and functional aspects in Rust. 
+Recently I started programming for my esp32 and exploring embedded development further is definitely something I want to do next!
+Through working on games and work I have a lot of experience in Unity and recently picked up learning Godot. 
+I am not much of a web developer, but I know my way around building full stack web applications and backends.

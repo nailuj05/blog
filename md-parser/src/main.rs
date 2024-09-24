@@ -122,6 +122,12 @@ fn copy_imgs(img_path: &str, html_path: &str) {
     match list_files_in_directory(img_path) {
         Ok(files) => {
             for file in files {
+                println!("File: {}", file);
+                println!(
+                    "from: {} \nto: {}",
+                    format!("{}/{}", img_path, file),
+                    format!("{}/_images/{}", html_path, file)
+                );
                 fs::copy(
                     format!("{}/{}", img_path, file),
                     format!("{}/_images/{}", html_path, file),

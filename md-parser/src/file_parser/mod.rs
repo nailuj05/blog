@@ -171,9 +171,7 @@ fn parse_line(line: &str, codeblock: &mut bool, list: &mut Vec<List>) -> String 
     let code_re = Regex::new(r"`([^`]+)`").unwrap();
     html_line = bold_re.replace_all(&html_line, "<b>$1</b>").to_string();
     html_line = italics_re.replace_all(&html_line, "<i>$1</i>").to_string();
-    html_line = code_re
-        .replace_all(&html_line, "<code>$1</code>")
-        .to_string();
+    html_line = code_re.replace_all(&html_line, "<code>$1</code>").to_string();
 
     // Quote
     if line.starts_with(">") {

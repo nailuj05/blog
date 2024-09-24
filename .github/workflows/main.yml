@@ -48,7 +48,8 @@ jobs:
     - name: Run the project
       run: |
         cd md-parser
-        ./target/release/md-parser  # Replace with your binary name
+        ls -la
+        ./target/release/md-parser
 
     # Deploy to GitHub Pages
     - name: Deploy to GitHub Pages

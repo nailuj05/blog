@@ -32,9 +32,9 @@ fn main() {
     match list_files_in_directory(&src_path) {
         Ok(files) => {
             // Skip WIP Entries
-            let files: Vec<String> = files.into_iter().filter(|f| !f.starts_with("_")).collect();
+            let mut files: Vec<String> = files.into_iter().filter(|f| !f.starts_with("_")).collect();
 
-            let entries_page = construct_entries_page(&files);
+            let entries_page = construct_entries_page(&mut files);
             for file in &files {
                 let title = &file[..file.len() - 3];
                 let content = parse(src_path.join(file).to_str().unwrap());
@@ -88,7 +88,9 @@ fn write_file_to_folder(folder: &str, file_name: &str, content: &str) -> io::Res
     Ok(())
 }
 
-fn construct_entries_page(files: &[String]) -> String {
+fn construct_entries_page(files: &mut [String]) -> String {
+    files.sort_by(|a, b| a.to_lowercase().cmp(&b.to_lowercase()));
+
     let entry_links: String = files
         .iter()
         .map(|f| Path::new(f).file_stem().unwrap().to_str().unwrap())
@@ -119,7 +121,6 @@ fn copy_imgs(img_path: &Path, html_path: &Path) {
     match list_files_in_directory(img_path) {
         Ok(files) => {
             for file in files {
-                println!("path: {}", html_path.canonicalize().unwrap().to_str().unwrap());
                 match fs::copy(
                     img_path.join(&file).canonicalize().unwrap(),
                     html_path.canonicalize().unwrap().join(file),

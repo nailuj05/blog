@@ -21,7 +21,7 @@ jobs:
         profile: minimal
         override: true
 
-    # Cache Cargo builds
+   # Cache Cargo builds
     - name: Cache cargo registry
       uses: actions/cache@v3
       with:
@@ -43,15 +43,18 @@ jobs:
       run: |
         cd md-parser
         cargo build --release
+    
+    # Check if binary exists
+    - name: Check if binary exists
+      run: |
+        cd md-parser
+        ls -la ./target/release/
 
-    # Run the project
+    # Run the project with backtrace
     - name: Run the project
       run: |
         cd md-parser
-        mkdir ./../html
-        ls ./../ -la
-        ./target/release/md-parser
-
+        RUST_BACKTRACE=1 ./target/release/md-parser
     # Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3

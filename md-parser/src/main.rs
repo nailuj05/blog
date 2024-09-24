@@ -15,7 +15,7 @@ fn main() {
     // Delete everything currently in html/
     clear_folder(html_path);
 
-    copy_imgs(src_path, html_path);
+    copy_imgs("./../blog-src/_images", html_path);
 
     // Parse md files
     match list_files_in_directory(src_path) {
@@ -100,13 +100,12 @@ fn construct_entry(entry: &str, header: &str, footer: &str, content: &str, entri
         .replace("<!--FOOTER-->", footer)
 }
 
-fn copy_imgs(src_path: &str, html_path: &str) {
-    let img_path = format!("{}/_images", src_path);
+fn copy_imgs(img_path: &str, html_path: &str) {
     match list_files_in_directory(&img_path) {
         Ok(files) => {
             for file in files {
                 fs::copy(
-                    format!("{}/{}", &img_path, file),
+                    format!("{}/{}", img_path, file),
                     format!("{}/_images/{}", html_path, file),
                 )
                 .unwrap();

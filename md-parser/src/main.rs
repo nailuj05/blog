@@ -26,7 +26,7 @@ fn main() {
     // Delete everything currently in html/
     clear_folder(&html_path);
 
-    copy_imgs(&current_dir.join("../blog-src/_images"), &html_path.join("_images"));
+    copy_imgs(&current_dir.join("../blog-src/_images"), &html_path.join("_images/"));
 
     // Parse md files
     match list_files_in_directory(&src_path) {

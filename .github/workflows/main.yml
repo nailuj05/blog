@@ -1,8 +1,5 @@
 name: Build and Deploy Blog
 
-permissions:
-  contents: write
-
 on:
   push:
     branches:
@@ -24,34 +21,11 @@ jobs:
         profile: minimal
         override: true
 
-   # Cache Cargo builds
-    - name: Cache cargo registry
-      uses: actions/cache@v3
-      with:
-        path: ~/.cargo/registry
-        key: ${{ runner.os }}-cargo-registry
-        restore-keys: |
-          ${{ runner.os }}-cargo-registry
-
-    - name: Cache cargo build
-      uses: actions/cache@v3
-      with:
-        path: md-parser/target
-        key: ${{ runner.os }}-cargo-build
-        restore-keys: |
-          ${{ runner.os }}-cargo-build
-
     # Build the Rust project in the subfolder
     - name: Build the project
       run: |
         cd md-parser
         cargo build --release
-    
-    # Check if binary exists
-    - name: Check if binary exists
-      run: |
-        cd md-parser
-        ls -la ./target/release/
 
     # Run the project with backtrace
     - name: Run the project
@@ -61,7 +35,7 @@ jobs:
     
     # Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+      uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./html

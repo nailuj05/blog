@@ -48,7 +48,7 @@ jobs:
     - name: Run the project
       run: |
         cd md-parser
-        ls -la
+        mkdir ./../html
         ./target/release/md-parser
 
     # Deploy to GitHub Pages

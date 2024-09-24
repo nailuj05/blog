@@ -122,7 +122,7 @@ fn copy_imgs(img_path: &Path, html_path: &Path) {
                 println!("path: {}", html_path.canonicalize().unwrap().to_str().unwrap());
                 match fs::copy(
                     img_path.join(&file).canonicalize().unwrap(),
-                    html_path.join(&file).canonicalize().unwrap(),
+                    html_path.canonicalize().unwrap().join(file),
                 ) {
                     Ok(_) => (),
                     Err(e) => println!("Error: {}", e),

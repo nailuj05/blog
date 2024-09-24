@@ -1,146 +1,123 @@
-use regex::Regex;
-use std::fs::File;
-use std::io::{self, BufRead, BufReader};
+mod file_parser;
+use file_parser::parse;
+use std::fs;
+use std::io;
+use std::path::Path;
 
-enum List {
-    None,
-    Ordered(usize),
-    Unordered(usize),
-}
+fn list_files_in_directory<P: AsRef<Path>>(path: P) -> io::Result<Vec<String>> {
+    let mut files = Vec::new();
 
-fn main() {
-    parse("test.md").unwrap();
-}
+    for entry in fs::read_dir(path)? {
+        let entry = entry?;
+        let path = entry.path();
 
-fn parse(file: &str) -> io::Result<()> {
-    let file = File::open(file)?;
-
-    let reader = BufReader::new(file);
-
-    let mut codeblock = false;
-    let mut list: Vec<List> = Vec::new();
-
-    for line in reader.lines() {
-        match line {
-            Err(_) => break,
-            Ok(l) => println!("{}", parse_line(l.as_str(), &mut codeblock, &mut list)),
+        if path.is_file() {
+            if let Some(file_name) = path.file_name().and_then(|n| n.to_str()) {
+                files.push(file_name.to_string());
+            }
         }
     }
 
+    Ok(files)
+}
+
+fn write_file_to_folder(folder: &str, file_name: &str, content: &str) -> io::Result<()> {
+    let file_path = format!("{}/{}", folder, file_name);
+
+    fs::write(file_path, content)?;
     Ok(())
 }
 
-fn parse_line(line: &str, codeblock: &mut bool, list: &mut Vec<List>) -> String {
-    let mut html_line: String = String::new();
+fn construct_entry(entry: &str, header: &str, footer: &str, content: &str, title: &str) -> String {
+    entry
+        .replace("[TITLE]", title)
+        .replace("<!--ENTRY-->", content)
+        .replace("<!--HEADER-->", header)
+        .replace("<!--FOOTER-->", footer)
+}
 
-    // Codeblock
-    if line.starts_with("```") {
-        html_line.push_str(if *codeblock { "</code>" } else { "<code>" });
-        *codeblock = !*codeblock;
-        return html_line;
+fn main() {
+    let src_path = "./../blog-src";
+    let html_path = "./../html";
+
+    let header = fs::read_to_string("./../blog-template/header.html").unwrap();
+    let footer = fs::read_to_string("./../blog-template/footer.html").unwrap();
+    let entry = fs::read_to_string("./../blog-template/entry.html").unwrap();
+
+    // Delete everything currently in html/
+    match list_files_in_directory("./../html") {
+        Ok(files) => {
+            for file in files {
+                fs::remove_file(format!("{}/{}", html_path, file)).unwrap();
+            }
+        }
+        Err(e) => {
+            eprintln!("Error reading directory: {}", e);
+        }
     }
 
-    // Headers
-    let header_level = line
-        .chars()
-        .scan(0, |acc, c| {
-            if c == '#' {
-                *acc += 1;
-                Some(*acc)
-            } else {
-                None
-            }
-        })
-        .last()
-        .unwrap_or(0);
+    fs::copy(
+        "./../blog-template/style.css",
+        format!("{}/style.css", html_path),
+    )
+    .unwrap();
+    fs::copy("./../blog-template/bg.png", format!("{}/bg.png", html_path)).unwrap();
+    let mut contact = fs::read_to_string("./../blog-template/contact.html").unwrap();
+    contact = contact
+        .replace("<!--HEADER-->", header.as_str())
+        .replace("<!--FOOTER-->", footer.as_str());
 
-    if header_level > 0 {
-        html_line.push_str("<h");
-        html_line.push_str(&header_level.to_string());
-        html_line.push_str(">");
-        html_line.push_str(&line[header_level + 1..]);
-        html_line.push_str("</h");
-        html_line.push_str(&header_level.to_string());
-        html_line.push_str(">");
-        return html_line;
+    fs::write(format!("{}/contact.html", html_path), contact).unwrap();
+
+    let mut index = fs::read_to_string("./../blog-template/index.html").unwrap();
+    index = index
+        .replace("<!--HEADER-->", header.as_str())
+        .replace("<!--FOOTER-->", footer.as_str());
+
+    fs::write(format!("{}/index.html", html_path), index).unwrap();
+
+    // Copy images
+    let img_path = format!("{}/_images", src_path);
+    match list_files_in_directory(&img_path) {
+        Ok(files) => {
+            for file in files {
+                fs::copy(
+                    format!("{}/{}", &img_path, file),
+                    format!("{}/_images/{}", html_path, file),
+                )
+                .unwrap();
+            }
+        }
+        Err(e) => {
+            eprintln!("Error reading directory: {}", e);
+        }
     }
 
-    // Lists
-    let ul = Regex::new(r"^\t*[-*+]\s+.+$").unwrap().is_match(&line);
-    let ol = Regex::new(r"^\t*\d+\.\s+.+$").unwrap().is_match(&line);
-    let depth: usize = line.chars().take_while(|&c| c == '\t').count();
-
-    if ul {
-        match list.last().unwrap_or(&List::None) {
-            List::None => {
-                html_line.push_str(&format!("<ul>\n<li>{}</li>", &line.trim()[2..]));
-                list.push(List::Unordered(depth));
-            }
-            // if last list was ordered
-            List::Ordered(_) => {
-                html_line.push_str("</ol>\n");
-                list.pop();
-                html_line.push_str(&format!("<ul>\n<li>{}</li>", &line.trim()[2..]));
-                list.push(List::Unordered(depth));
-            }
-            // if last list was also unordered
-            List::Unordered(last_depth) => {
-                if last_depth > &depth {
-                    html_line.push_str("</ul>\n");
-                    list.pop();
-                } else if last_depth < &depth {
-                    html_line.push_str("<ul>\n");
-                    list.push(List::Unordered(depth));
+    // Parse md files
+    match list_files_in_directory(src_path) {
+        Ok(files) => {
+            for file in files {
+                let title = &file[..file.len() - 3];
+                let content = parse(format!("{}/{}", src_path, file.as_str()).as_str());
+                let html = construct_entry(
+                    entry.as_str(),
+                    header.as_str(),
+                    footer.as_str(),
+                    content.as_str(),
+                    title,
+                );
+                match write_file_to_folder(
+                    "./../html",
+                    format!("{}.html", title).as_str(),
+                    html.as_str(),
+                ) {
+                    Ok(_) => println!("Converted: {}", file),
+                    Err(_) => eprintln!("Error saving: {}", file),
                 }
-                html_line.push_str(&format!("<li>{}</li>", &line.trim()[2..]));
             }
         }
-    } else if ol {
-        let n = *&line.trim().chars().take_while(|&c| c != ' ').count() + 1;
-        match list.last().unwrap_or(&List::None) {
-            List::None => {
-                html_line.push_str(&format!("<ol>\n<li>{}</li>", &line.trim()[n..]));
-                list.push(List::Ordered(depth));
-            }
-            // if last list was also ordered
-            List::Ordered(last_depth) => {
-                if last_depth > &depth {
-                    html_line.push_str("</ol>\n");
-                    list.pop();
-                } else if last_depth < &depth {
-                    html_line.push_str("<ol>\n");
-                    list.push(List::Ordered(depth));
-                }
-                html_line.push_str(&format!("<li>{}</li>", &line.trim()[n..]));
-            }
-            // if last list was unordered
-            List::Unordered(_) => {
-                html_line.push_str("</ul>\n");
-                list.pop();
-                html_line.push_str(&format!("<ol><li>{}</li>", &line.trim()[n..]));
-                list.push(List::Ordered(depth));
-            }
+        Err(e) => {
+            eprintln!("Error reading directory: {}", e);
         }
-    } else {
-        while !list.is_empty() {
-            match list.pop().unwrap() {
-                List::None => (),
-                List::Ordered(_) => html_line.push_str("</ol>"),
-                List::Unordered(_) => html_line.push_str("</ul>"),
-            }
-        }
-        html_line.push_str(&format!("{}<br>", &line.trim()))
     }
-
-    // Bold, Italics & inline Code
-    let bold_re = Regex::new(r"\*\*(.*?)\*\*").unwrap();
-    let italics_re = Regex::new(r"\*(.*?)\*").unwrap();
-    let code_re = Regex::new(r"`([^`]+)`").unwrap();
-    html_line = bold_re.replace_all(&html_line, "<b>$1</b>").to_string();
-    html_line = italics_re.replace_all(&html_line, "<i>$1</i>").to_string();
-    html_line = code_re
-        .replace_all(&html_line, "<code>$1</code>")
-        .to_string();
-
-    html_line
 }

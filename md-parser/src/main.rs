@@ -120,11 +120,13 @@ fn copy_imgs(img_path: &Path, html_path: &Path) {
         Ok(files) => {
             for file in files {
                 println!("path: {}", html_path.canonicalize().unwrap().to_str().unwrap());
-                fs::copy(
+                match fs::copy(
                     img_path.join(&file).canonicalize().unwrap(),
                     html_path.join(&file).canonicalize().unwrap(),
-                )
-                .unwrap();
+                ) {
+                    Ok(_) => (),
+                    Err(e) => println!("Error: {}", e),
+                }
             }
         }
         Err(e) => {

@@ -98,12 +98,12 @@ fn construct_entries_page(files: &mut [String]) -> String {
         .fold("".to_string(), |acc, s| acc + "\n" + s.as_str());
 
     format!(
-        "<section class=\"recent-entries\">
-      <h2>Recent Blog Entries</h2>
+        "<details open class=\"recent-entries\">
+      <summary>Recent Blog Entries</summary>
       <ul>
         {}
       </ul>
-    </section>",
+    </details>",
         entry_links
     )
 }

@@ -119,6 +119,10 @@ fn copy_imgs(img_path: &Path, html_path: &Path) {
     match list_files_in_directory(img_path) {
         Ok(files) => {
             for file in files {
+                println!(
+                    "path: {}",
+                    html_path.join(&file).canonicalize().unwrap().to_str().unwrap()
+                );
                 fs::copy(
                     img_path.join(&file).canonicalize().unwrap(),
                     html_path.join(&file).canonicalize().unwrap(),

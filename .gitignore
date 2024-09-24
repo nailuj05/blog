@@ -25,4 +25,7 @@ blog-src/.obsidian/*
 
 # ignore compiled html
 html/*
+html/_images/*
+!html/_images/
+!html/
 !html/_images/.gitkeep

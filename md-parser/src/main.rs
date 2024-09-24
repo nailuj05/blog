@@ -26,7 +26,7 @@ fn main() {
     // Delete everything currently in html/
     clear_folder(&html_path);
 
-    copy_imgs(&current_dir.join("../blog-src/_images"), &html_path);
+    copy_imgs(&current_dir.join("../blog-src/_images"), &html_path.join("_images"));
 
     // Parse md files
     match list_files_in_directory(&src_path) {
@@ -119,7 +119,7 @@ fn copy_imgs(img_path: &Path, html_path: &Path) {
     match list_files_in_directory(img_path) {
         Ok(files) => {
             for file in files {
-                fs::copy(img_path.join(&file), html_path.join("_images/").join(&file)).unwrap();
+                fs::copy(img_path.join(&file), html_path.join(&file)).unwrap();
             }
         }
         Err(e) => {

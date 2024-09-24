@@ -90,17 +90,17 @@ fn parse_line(line: &str, codeblock: &mut bool, list: &mut Vec<List>) -> String 
     if header_level > 0 {
         html_line.push_str("<h");
         html_line.push_str(&header_level.to_string());
-        html_line.push_str(">");
+        html_line.push('>');
         html_line.push_str(&line[header_level + 1..]);
         html_line.push_str("</h");
         html_line.push_str(&header_level.to_string());
-        html_line.push_str(">");
+        html_line.push('>');
         return html_line;
     }
 
     // Lists
-    let ul = Regex::new(r"^\t*[-*+]\s+.+$").unwrap().is_match(&line);
-    let ol = Regex::new(r"^\t*\d+\.\s+.+$").unwrap().is_match(&line);
+    let ul = Regex::new(r"^\t*[-*+]\s+.+$").unwrap().is_match(line);
+    let ol = Regex::new(r"^\t*\d+\.\s+.+$").unwrap().is_match(line);
     let depth: usize = line.chars().take_while(|&c| c == '\t').count();
 
     if ul {

@@ -35,6 +35,11 @@ jobs:
       run: |
         cd md-parser
         RUST_BACKTRACE=1 ./target/release/md-parser
+
+    #Create CNAME
+    - name: Create CNMAE file
+      run: |
+        echo "blog.julianlimburg.zip" > ./html/CNAME
     
     # Deploy to GitHub Pages
     - name: Deploy to GitHub Pages

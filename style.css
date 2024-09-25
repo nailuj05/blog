@@ -16,8 +16,13 @@ body {
 }
 
 img {
-    max-width: 100%; /* Ensures the image does not exceed its container width */
-    height: auto;
+	width: 100%;
+    max-width: 600px;
+	height: auto;
+
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 header {
@@ -204,6 +209,7 @@ details ul li a:hover {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+	margin-right: 20%;
 }
 
 .recent-entries h2, .main-text h2 {

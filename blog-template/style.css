@@ -69,6 +69,7 @@ nav ul li a:hover {
         width: 100%;
         margin-bottom: 20px;
         box-sizing: border-box;
+		margin-right: 0%;
     }
 
     details {

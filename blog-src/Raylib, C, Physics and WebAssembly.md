@@ -1,3 +1,5 @@
+# Raylib, C, Physics and WebAssembly
+
 After seeing this Ying-Yang Ping Pong somewhere online (I forgot where), I was inspired to build a similar application myself as a nice exercise. And during my last longer train ride I had the time to do just so!
 
 ![[output.gif]]

@@ -55,7 +55,13 @@ I also wanted to have a small animation for turning the LEDs on and off. After a
 With there being no OS on the chip there is also no scheduler or time-sharing, this means multi threading and async functions don't just work out-of-the-box like they would on a usual OS environment. There are libraries and ways to achieve a similar functionality (or you can always implement your own) but for now I achieved the same effect by replacing the delays with a time checking method which checks the time intervals for enabling the next pixel.
 
 ## Making a case for the controller
-//...// TODO
+![[desiging-case.jpg]]
+
+Of course, I couldn't leave the ESP just open and exposed to everything, so I set out to design a case. I found this nice case on Thingiverse and after modifying it a bit to fit my needs it was ready to be printed.
+
+![[finished_case.jpg]]
+
+The final case is quite small, with the pins being exposed on the bottom, and the USB Port and the 2 Buttons on the top exposed as well. The ring around the case is holding the cables together, feeding them into the tube and acting as a strain release.
 
 ## Building the jar
 

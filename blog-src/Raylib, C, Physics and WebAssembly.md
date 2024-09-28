@@ -1,6 +1,6 @@
 # Raylib, C, Physics and WebAssembly
 
-After seeing this Ying-Yang Ping Pong somewhere online (I forgot where), I was inspired to build a similar application myself as a nice exercise. And during my last longer train ride I had the time to do just so!
+After seeing [this](https://store.steampowered.com/app/3117780/YinYang_PingPong/) Ying-Yang Ping-Pong somewhere online, I was inspired to build a similar application myself as a nice exercise. And during my last longer train ride I had the time to do just so!
 
 ![[output.gif]]
 
@@ -30,5 +30,5 @@ For compiling it all I added a `web`-flag to my noob build system.
 With that done all that was left to do was deploying to GitHub Pages and writing this post. You can check it all out here:
 
 [GitHub](https://github.com/nailuj05/ying-yang-ping-pong)
-[Web Version](https://nailuj05.github.io/ying-yang-ping-pong/)
+[Web Version](https://nailuj05.github.io/ying-yang-ping-pong/) (Set the page to desktop-mode on mobile)
 

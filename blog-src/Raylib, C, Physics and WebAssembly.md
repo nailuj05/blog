@@ -1,12 +1,12 @@
 # Raylib, C, Physics and WebAssembly
 
-After seeing [this](https://store.steampowered.com/app/3117780/YinYang_PingPong/) Ying-Yang Ping-Pong somewhere online, I was inspired to build a similar application myself as a nice exercise. And during my last longer train ride I had the time to do just so!
+After seeing [this](https://store.steampowered.com/app/3117780/YinYang_PingPong/) Yin-Yang Ping-Pong somewhere online, I was inspired to build a similar application myself as a nice exercise. And during my last longer train ride I had the time to do just so! (I have later found out that it is in fact yin yang and not ying yang .-.)
 
 ![[output.gif]]
 
 I really enjoyed working in C and Raylib recently (Raylib really deserves its own blog post in the future) so that is what I chose. For the uninitiated, Raylib is a "simple and easy-to-use library to enjoy video games programming". It provides a framework to build graphical applications, without the hassle of using platform specific APIs or setting up a OpenGL/Vulcan Pipeline yourself. In my opinion it is somewhat comparable to SDL, but simpler and more hackable. With raylib being simple I mean it is easy to use, its feature set is still really powerful.
 
-The main application turned out to be simpler than expected, the ying-yang grid is represented as an array of booleans. The balls are structs comprised of their position, velocity and color, which is enough to handle the physics. For the physics I started with a basic gravity acceleration, as just a continuous integration of the velocity (on the y-axis). Done, next up: Collisions. At first, I implemented the border collisions, they are rather easy, you just need to check whether a ball has left the range of your window on either axis and, if so, reflect its velocity along the normal of the border it exited. For the actual collision checks I always treat the ball as if it was a point, which simplifies the math and is barely noticeable.
+The main application turned out to be simpler than expected, the yin-yang grid is represented as an array of booleans. The balls are structs comprised of their position, velocity and color, which is enough to handle the physics. For the physics I started with a basic gravity acceleration, as just a continuous integration of the velocity (on the y-axis). Done, next up: Collisions. At first, I implemented the border collisions, they are rather easy, you just need to check whether a ball has left the range of your window on either axis and, if so, reflect its velocity along the normal of the border it exited. For the actual collision checks I always treat the ball as if it was a point, which simplifies the math and is barely noticeable.
 
 ![[Reflection-sketch.png]]
 *A sketch showing the reflection of the balls velocity along a border*
@@ -27,8 +27,8 @@ The application itself only needed minor changes, due to the way browsers work y
 
 For compiling it all I added a `web`-flag to my noob build system.
 
-With that done all that was left to do was deploying to GitHub Pages and writing this post. You can check it all out here:
+With that done all that was left to do was deployin to GitHub Pages and writing this post. You can check it all out here:
 
-[GitHub](https://github.com/nailuj05/ying-yang-ping-pong)
-[Web Version](https://nailuj05.github.io/ying-yang-ping-pong/) (Set the page to desktop-mode on mobile)
+[GitHub](https://github.com/nailuj05/yin-yang-ping-pong)
+[Web Version](https://nailuj05.github.io/yin-yang-ping-pong/) (Set the page to desktop-mode on mobile)
 

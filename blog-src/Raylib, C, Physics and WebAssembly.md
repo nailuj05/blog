@@ -29,6 +29,6 @@ For compiling it all I added a `web`-flag to my noob build system.
 
 With that done all that was left to do was deployin to GitHub Pages and writing this post. You can check it all out here:
 
-[GitHub](https://github.com/nailuj05/yin-yang-ping-pong)
-[Web Version](https://nailuj05.github.io/yin-yang-ping-pong/) (Set the page to desktop-mode on mobile)
+[GitHub](https://github.com/nailuj05/ying-yang-ping-pong)
+[Web Version](https://nailuj05.github.io/ying-yang-ping-pong/) (Set the page to desktop-mode on mobile)
 

@@ -1,6 +1,10 @@
+# Terminal Todo App
+
 I have todo lists everywhere, on my phone, on the web, on my PC, in my note-taking app etc...
 So why not build another one? One that I actually see on a daily basis.
 I wanted to keep this project small and simple, something that can be done in an hour. In that spirit I wanted to work in C, for persistent storage I wanted to use a database. Having never worked with databases outside of web applications, I was looking forward to getting some experience in that regard. 
+
+![[Pasted image 20241110234231.png]]
 
 I set a goal to keep it minimal, with just the basics: add, list, delete tasks, and a reset option.
 

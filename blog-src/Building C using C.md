@@ -1,3 +1,5 @@
+# Building C using C
+
 I hate build systems, I think they are a necessary evil at best - and a design flaw at worst. In almost all cases, you'll need to learn another language just to build the language you actually want to use. And for anything beyond simple applications, it is tedious up to impossible to not use a build system. 
 
 For building C I usually tried to use just a shell script, this is something you can usually read and execute on your system (assuming you are on Linux). It is also simple and transparent. For anything more complex, it becomes just as unusable and clunky as the rest.

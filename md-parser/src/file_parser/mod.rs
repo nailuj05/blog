@@ -69,6 +69,7 @@ fn parse_line(line: &str, codeblock: &mut bool, list: &mut Vec<List>) -> String 
     }
 
     if *codeblock {
+	html_line = format!("{}<br>", line);
 	return html_line;
     }
 

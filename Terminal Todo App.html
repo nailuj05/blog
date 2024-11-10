@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terminal Todo App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="https://github.com/nailuj05">Github</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+  <div class="content-wrapper">
+    <details open class="recent-entries">
+      <summary>Recent Blog Entries</summary>
+      <ul>
+        
+<li><a href="Alarmy - Eternal Terrarium and Alarm clock.html">Alarmy - Eternal Terrarium and Alarm clock</a></li>
+<li><a href="Building this blog.html">Building this blog</a></li>
+<li><a href="Raylib, C, Physics and WebAssembly.html">Raylib, C, Physics and WebAssembly</a></li>
+<li><a href="Terminal Todo App.html">Terminal Todo App</a></li>
+      </ul>
+    </details>
+
+    <section class="main-text">
+      <!-- <h1>Blog Post Title 1</h1> -->
+      <!-- <p>Posted on [Date]</p> -->
+      <!-- <article> -->
+      <!--   <p>This is the content of your blog post. You can write as much as you want here.</p> -->
+      <!-- </article> -->
+      I have todo lists everywhere, on my phone, on the web, on my PC, in my note-taking app etc...<br>So why not build another one? One that I actually see on a daily basis.<br>I wanted to keep this project small and simple, something that can be done in an hour. In that spirit I wanted to work in C, for persistent storage I wanted to use a database. Having never worked with databases outside of web applications, I was looking forward to getting some experience in that regard.<br><br>I set a goal to keep it minimal, with just the basics: add, list, delete tasks, and a reset option.<br><br>The <code>todo_init</code> function sets up a database file, creating a <code>todos</code> table with <code>id</code> and <code>task</code> columns if it doesn’t already exist. This ensures data persists between uses, which is critical for a lightweight task manager like this. Adding tasks is done with a parameterized SQL query for security, and each task is assigned a unique ID, making them easy to refer back to.<br><br>The program uses simple CLI commands: <code>add</code> adds a new task, <code>ls</code> lists all tasks, <code>del</code> removes a task by ID, and <code>reset</code> clears the database. Listing tasks is a quick SQL query, and deletion uses a bound parameter for the ID to prevent mistakes or injections.<br><br>In the end, this quick project turned out exactly as I hoped: a straightforward, always-visible todo list that got me comfortable with SQLite in C, all in just a few lines of code.<br><br>And that's already it, keeping it really short with this blog post, I am working on some bigger (and cooler) projects that I'll soon be able to share.<br><br>In the meantime, check out the repository <a href="https://github.com/nailuj05/todo">here</a><br>
+    </section>
+  </div>
+
+  <footer>
+  <p>&copy; 2024 Julian Limburg</p>
+</footer>
+
+</body>
+
+</html>

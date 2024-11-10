@@ -68,6 +68,10 @@ fn parse_line(line: &str, codeblock: &mut bool, list: &mut Vec<List>) -> String 
         return html_line;
     }
 
+    if codeblock {
+	return html_line;
+    }
+
     // Quote
     if line.starts_with(">") {
         html_line.push_str("<blockquote");

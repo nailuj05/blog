@@ -68,7 +68,7 @@ fn parse_line(line: &str, codeblock: &mut bool, list: &mut Vec<List>) -> String 
         return html_line;
     }
 
-    if codeblock {
+    if *codeblock {
 	return html_line;
     }
 

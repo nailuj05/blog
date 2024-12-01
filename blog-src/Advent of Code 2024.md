@@ -5,7 +5,9 @@ This year I am doing AoC while trying to use as many different programming langu
 
 As always you can find the code in this [repository](https://github.com/nailuj05/aoc24) (I will release my solutions the day after)
 
-### Day 01 - Perl
+---
+
+**Day 01 - Perl**
 
 Using Perl here was really fun. I have never used it before. It feels like pythons older brother. 
 The easy file I/O, list and hash map handling made it a great fit for this task as well. I would also like to explore Perls regex capabilities in a future task.

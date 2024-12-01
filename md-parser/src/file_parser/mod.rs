@@ -78,6 +78,11 @@ fn parse_line(line: &str, codeblock: &mut bool, list: &mut Vec<List>) -> String 
         html_line.push_str("<blockquote");
     }
 
+    if line.starts_with("---") {
+	html_line.push_str("<hr>");
+	return html_line;
+    }
+    
     // Headers
     let header_level = line
         .chars()

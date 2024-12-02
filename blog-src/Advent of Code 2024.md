@@ -12,3 +12,10 @@ As always you can find the code in this [repository](https://github.com/nailuj05
 Using Perl here was really fun. I have never used it before. It feels like pythons older brother. 
 The easy file I/O, list and hash map handling made it a great fit for this task as well. I would also like to explore Perls regex capabilities in a future task.
 
+
+**Day 02 - Go**
+
+I haven't really used go, except for a short time a few years back. Following a recommendation of a friend I wanted to try it out again. To be honest using Go on today's challenge was not a great experience, I am not sure how much of that is to blame on me though - there are a few caveats where I don't see the benefit (yet?). Slices referencing their source array instead of copying was off-putting in particular. I don't see how this isn't a big source of nasty or annoying bugs, but that might boil down to a skill issue after all.
+
+This won't be the last time using Go, and I am looking forward to fully exploring the language and getting my hands dirty with it.
+

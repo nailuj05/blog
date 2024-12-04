@@ -19,3 +19,6 @@ I haven't really used go, except for a short time a few years back. Following a 
 
 This won't be the last time using Go, and I am looking forward to fully exploring the language and getting my hands dirty with it.
 
+**Day 03 - Perl (again)**
+
+I originally wanted to do this in C, but halfway through my implementation of a state machine I recognized that I was basically reinventing the wheel here (and by wheel I mean Regex) - so I just switched to Perl. Using Perls excellent regex support both tasks were solved in less lines of code than my half-baked state machine for just the first task in C.

@@ -45,8 +45,7 @@ Once the build system is bootstrapped (compiled using just `gcc -o noob noob.c`)
 
 If you want to compile the WebAssembly version, you can pass in `web` (requires you have emscripten set up and enabled, but that is besides the point). You can also pass in `serve` to run the web server to test it as well.
 
-There are also functions to create, extend (for example for adding options or debug flags to a compile command) and freeing a more complex command.
-Working with this system in future projects, I will probably expand it further depending on my needs. 
+I am actively expanding noobs functionality with all the helper functions I find useful in my projects, such as easily checking argv for flags, async exectution for bigger builds and of course checking whether a binary file is outdated and recompiling if necessary (for incremental builds). 
 
 The really cool part is the bootstrapping, though. In any project, you will only have to compile noob once. After that (and assuming you called `RebuildYourself()` at the top) noob will detect whether it is out of date (the binary is older than the last modified of the source), recompile and the run itself.
 
@@ -76,6 +75,8 @@ void RebuildYourself(int argc, const char **argv) {
 Regardless whether you changed your build system and/or your project itself, just calling noob will handle it. RebuildYourself() also pass the arguments through so besides the "Rebuilding" printed to your stdout, it will be seamless.
 
 C can call any command and, due to being Turing complete, can model any logic. Annoying and repetitive tasks, such as checking for flags in `argv`, can be put into the library to keep the actual build script as concise as possible. 
+
+Another cool perk of including the entire build system in the header file within the project is that it will never cause issues with newer versions (a common issue with GNU autotools). For example I recently refactored noob to use a more concise syntax and a prefix to avoid namespace collisions in bigger projects. This doesn't force me to rewrite any of the noob.c build files in my current projects however, they are all self contained and will continue to work. 
 
 Of course, C can not just build C (and I use it for other projects too) but the philosophy itself is also portable to most languages. Why not compile Ocaml in Ocaml?
 

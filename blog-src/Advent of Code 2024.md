@@ -22,3 +22,6 @@ This won't be the last time using Go, and I am looking forward to fully explorin
 **Day 03 - Perl (again)**
 
 I originally wanted to do this in C, but halfway through my implementation of a state machine I recognized that I was basically reinventing the wheel here (and by wheel I mean Regex) - so I just switched to Perl. Using Perls excellent regex support both tasks were solved in less lines of code than my half-baked state machine for just the first task in C.
+
+
+.... and that was it for this year, I did not find the time to participate further this year, maybe next time

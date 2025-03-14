@@ -1,3 +1,4 @@
+# Rendering ASCII
 With most exams written I finally found the time to work on some cool projects again, first of which is a Image to ASCII Art converter. 
 
 I first had the idea when checking out [nothings](https://github.com/nothing/stb) single header file libraries, of which `image.h` provides a really simple way for working with all the image formats and does the heavy lifting of working with the different formats for you. 

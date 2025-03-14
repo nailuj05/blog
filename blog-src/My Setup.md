@@ -1,3 +1,4 @@
+# My Setup
 I think my blog wouldn't be complete without me sharing my personal setup and work environment here as well.
 
 ## Hardware

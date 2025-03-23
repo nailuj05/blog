@@ -1,6 +1,6 @@
 # My Setup
 I think my blog wouldn't be complete without me sharing my personal setup and work environment here as well.
-e
+
 ## Hardware
 For most of my work I publish here I use a [Framework 13 Laptop](https://frame.work/laptop13), it has served me well for over 2 years now. For those who don't know Framework, they build modular, fully repairable and upgradeable laptops. I am still using an 11th Gen Intel processor as I didn't feel the need for an update yet, though I am considering switching to the matte display for better readability in bright areas. 
 

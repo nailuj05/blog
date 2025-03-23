@@ -63,14 +63,22 @@ fn parse_line(line: &str, codeblock: &mut bool, list: &mut Vec<List>) -> String 
 
     // Codeblock
     if line.starts_with("```") {
-        html_line.push_str(if *codeblock { "</code>" } else { "<code>" });
+				let line = if *codeblock {
+						"</code></pre>".to_owned()
+				} else {
+						format!("<pre class=\"language-{}\"><code class=\"language-{}\">", &line[3..], &line[3..])
+				};
+				
+        html_line.push_str(&line);
         *codeblock = !*codeblock;
         return html_line;
     }
 
     if *codeblock {
-	html_line = format!("{}<br>", line);
-	return html_line;
+				html_line = format!("{}\n", line
+														.replace("<", "&lt;")
+														.replace(">", "&gt"));
+				return html_line;
     }
 
     // Quote
@@ -79,8 +87,8 @@ fn parse_line(line: &str, codeblock: &mut bool, list: &mut Vec<List>) -> String 
     }
 
     if line.starts_with("---") {
-	html_line.push_str("<hr>");
-	return html_line;
+				html_line.push_str("<hr>");
+				return html_line;
     }
     
     // Headers

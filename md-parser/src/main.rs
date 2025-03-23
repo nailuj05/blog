@@ -36,7 +36,7 @@ fn main() {
 
             let entries_page = construct_entries_page(&mut files);
             for file in &files {
-                let title = &file[..file.len() - 3];
+                let title = &file[..file.len() - 3].replace(" ", "");
                 let content = parse(src_path.join(file).to_str().unwrap());
                 let html = construct_entry(
                     entry.as_str(),

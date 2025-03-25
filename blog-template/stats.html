@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statistics</title>
+  <link rel="stylesheet" href="style.css">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-geo"></script>
+</head>
+
+<body>
+  <!--HEADER-->
+
+
+  <div class="content-wrapper">
+    <!--ENTRIES-->
+
+    <section class="stats">
+      <h1>Statistics</h1>
+      <p>Here is a display of all statistics I track. The tracking is done on a custom backend on my own server, so no data is shared with any third parties. Furthermore there are no cookies set or any identifiable information stored. IP lookups are done on the clientside and just the country gets saved in the database. I like having this data public, after all it is your visits that creates these graphs :)</p>
+			<p>A blog post describing how this all works (including a repository with all the source code) will follow soon.</p>
+			<p>If you have any concerns, feedback or input regarding this, please reach out via the contact form (or directly by mail).</p>
+			<canvas id="visitGraph" style="width:100%;max-width:800px;max-height:600px"></canvas>
+			<canvas id="deviceDonut" style="width:100%;max-width:800px;max-height:600px"></canvas>
+			<canvas id="countryMap" style="width:100%;max-width:800px;max-height:600px"></canvas>
+    </section>
+		<!--STATSSIDE-->
+  </div>
+
+  <!--FOOTER-->
+
+	
+  <script>
+   function drawGraph(data) {
+       const days = data.map(item => item.day);
+       const counts = data.map(item => item.count);
+				
+			 new Chart("visitGraph", {
+					 type: "line",
+					 data: {
+							 labels: days,
+							 datasets: [{
+									 data: counts
+								}]
+					 },
+					 options: {
+							 plugins: {
+									 title: {
+											 display: true,
+											 text: "Visits last month"
+										},
+									 legend: {
+											 display: false
+									 }
+							 }
+					 }
+			 });
+    }
+	 
+	 function drawDonut(data) {
+			 const total = data.reduce((sum, item) => sum + item.count, 0);
+			 const devices = data.map(item => item.device);
+			 const counts = data.map(item => item.count);
+			 
+			 new Chart("deviceDonut", {
+					 type: "doughnut",
+					 data: {
+							 labels: devices,
+							 datasets: [{
+										data: counts,
+							 }]
+					 },
+					 options:{
+							 responsive: true,
+							 plugins: {
+									 title: {
+											 display: true,
+												text: "Devices used"
+									 },
+									 tooltip: {
+											 callbacks: {
+													 label: function (tooltipItem) {
+															 let value = counts[tooltipItem.dataIndex];
+																 let percentage = ((value / total) * 100).toFixed(2) + "%";
+															 return `${devices[tooltipItem.dataIndex]}: ${value} (${percentage})`;
+														 }
+											 }
+									 }
+							 },
+							 legend: {
+									 display: true
+								}
+					 }
+			 });
+	 }
+	 async function drawMap(mdata) {
+			 fetch('https://unpkg.com/world-atlas/countries-50m.json').then((r) => r.json()).then((data) => {
+					 const countries = ChartGeo.topojson.feature(data, data.objects.countries).features;
+					 const count = Object.values(mdata);
+					 
+					 const chart = new Chart(document.getElementById("countryMap").getContext("2d"), {
+							 type: 'choropleth',
+							 data: {
+									 labels: countries.map((d) => d.properties.name),
+									 datasets: [{
+											 label: 'Countries',
+											 data: countries.map((d) => ({feature: d, value: mdata?.[d.properties.name] ?? 0 })),
+									 }]
+							 },
+							 options: {
+									 showOutline: true,
+									 showGraticule: true,
+									 plugins: {
+											 title: {
+													 display: true,
+													 text: "Visit locations (by IP)"
+											 },
+											 legend: {
+													 display: false
+											 },
+									 },
+									 scales: {
+											 projection: {
+														axis: 'x',
+													 projection: 'equalEarth'
+											 }
+									 }
+							 }
+					 });
+				});
+	 }
+	 Chart.defaults.color = "white";
+   fetch('https://stats.julianlimburg.zip/stats.php?type=graph')
+			 .then(response => response.json())
+			 .then(data => drawGraph(data))
+			 .catch(error => console.error('Error fetching data:', error));
+	 fetch('https://stats.julianlimburg.zip/stats.php?type=devices')
+			 .then(response => response.json())
+			 .then(data => drawDonut(data))
+			 .catch(error => console.error('Error fetching data:', error));
+	 fetch('https://stats.julianlimburg.zip/stats.php?type=countries')
+			 .then(response => response.json())
+			 .then(data => drawMap(data))
+			 .catch(error => console.error('Error fetching data:', error));
+  </script>
+</body>
+</html>

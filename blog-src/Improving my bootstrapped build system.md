@@ -1,6 +1,6 @@
 # Improving my bootstrapped build system
 With some more free time on my hands I finally have time to work on some fun stuff again - and while doing so, I often came back to my build system to change and improve it. 
-I previously wrote a blog entry about it, you can find [here](https://blog.julianlimburg.zip/Building%20C%20using%20C.html). The general idea of the build system remains the same, I recommend reading my previous post if you are not familiar.
+I previously wrote a blog entry about it, you can find [here](https://blog.julianlimburg.zip/BuildingCusingC.html). The general idea of the build system remains the same, I recommend reading my previous post if you are not familiar.
 
 ![[Pasted image 20250314235858.png]]
 *Example of noob implementation*

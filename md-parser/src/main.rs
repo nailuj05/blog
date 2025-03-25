@@ -22,6 +22,7 @@ fn main() {
     let header = fs::read_to_string(current_dir.join("../blog-template/header.html")).unwrap();
     let footer = fs::read_to_string(current_dir.join("../blog-template/footer.html")).unwrap();
     let entry = fs::read_to_string(current_dir.join("../blog-template/entry.html")).unwrap();
+    let stats_side = fs::read_to_string(current_dir.join("../blog-template/stats-side.html")).unwrap();
 
     // Delete everything currently in html/
     clear_folder(&html_path);
@@ -36,7 +37,8 @@ fn main() {
 
             let entries_page = construct_entries_page(&mut files);
             for file in &files {
-                let title = &file[..file.len() - 3].replace(" ", "");
+                let title_link = &file[..file.len() - 3].replace(" ", "");
+                let title = &file[..file.len() - 3];
                 let content = parse(src_path.join(file).to_str().unwrap());
                 let html = construct_entry(
                     entry.as_str(),
@@ -45,10 +47,11 @@ fn main() {
                     content.as_str(),
                     entries_page.as_str(),
                     title,
+										stats_side.as_str()
                 );
                 match write_file_to_folder(
                     html_path.to_str().unwrap(),
-                    format!("{}.html", title).as_str(),
+                    format!("{}.html", title_link).as_str(),
                     html.as_str(),
                 ) {
                     Ok(_) => println!("Converted: {}", file),
@@ -56,7 +59,7 @@ fn main() {
                 }
             }
 
-            add_template(&current_dir, &html_path, &header, &footer, entries_page.as_str());
+            add_template(&current_dir, &html_path, &header, &footer, entries_page.as_str(), &stats_side);
         }
         Err(e) => {
             eprintln!("Error reading directory: {}", e);
@@ -108,13 +111,14 @@ fn construct_entries_page(files: &mut [String]) -> String {
     )
 }
 
-fn construct_entry(entry: &str, header: &str, footer: &str, content: &str, entries_page: &str, title: &str) -> String {
+fn construct_entry(entry: &str, header: &str, footer: &str, content: &str, entries_page: &str, title: &str, stats_side: &str) -> String {
     entry
         .replace("[TITLE]", title)
         .replace("<!--ENTRIES-->", entries_page)
         .replace("<!--ENTRY-->", content)
         .replace("<!--HEADER-->", header)
         .replace("<!--FOOTER-->", footer)
+        .replace("<!--STATSSIDE-->", stats_side)
 }
 
 fn copy_imgs(img_path: &Path, html_path: &Path) {
@@ -136,7 +140,7 @@ fn copy_imgs(img_path: &Path, html_path: &Path) {
     }
 }
 
-fn add_template(current_dir: &Path, html_path: &Path, header: &str, footer: &str, entries: &str) {
+fn add_template(current_dir: &Path, html_path: &Path, header: &str, footer: &str, entries: &str, stats_side: &str) {
     fs::copy(
         current_dir.join("../blog-template/style.css"),
         html_path.join("style.css"),
@@ -152,7 +156,17 @@ fn add_template(current_dir: &Path, html_path: &Path, header: &str, footer: &str
 
     fs::write(html_path.join("contact.html"), contact).unwrap();
 
-    let mut index = fs::read_to_string(current_dir.join("../blog-template/index.html")).unwrap();
+    let mut stats = fs::read_to_string(current_dir.join("../blog-template/stats.html")).unwrap();
+
+		stats = stats
+        .replace("<!--HEADER-->", header)
+        .replace("<!--ENTRIES-->", entries)
+        .replace("<!--FOOTER-->", footer)
+        .replace("<!--STATSSIDE-->", stats_side);
+
+    fs::write(html_path.join("stats.html"), stats).unwrap();
+
+		let mut index= fs::read_to_string(current_dir.join("../blog-template/index.html")).unwrap();
     index = index
         .replace("<!--HEADER-->", header)
         .replace("<!--ENTRIES-->", entries)

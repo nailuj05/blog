@@ -4,10 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RenderingASCII</title>
+  <title>Rendering ASCII</title>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+	<script src="https://stats.julianlimburg.zip/tracking.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -17,6 +18,7 @@
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="https://github.com/nailuj05">Github</a></li>
+      <li><a href="stats.html">Statistics</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
@@ -49,6 +51,25 @@
       <h1>Rendering ASCII</h1>With most exams written I finally found the time to work on some cool projects again, first of which is a Image to ASCII Art converter.<br><br>I first had the idea when checking out <a href="https://github.com/nothing/stb">nothings</a> single header file libraries, of which <code>image.h</code> provides a really simple way for working with all the image formats and does the heavy lifting of working with the different formats for you.<br>In my previous project <a href="https://github.com/nailuj05/PNGenius">PNGenius</a> I used <code>libpng</code> itself, which was overkill for the simple functionality I actually needed (and used).<br><br>For rendering ascii I had to goals:<br><ul>
 <li>Resemble the source image as closely as possible by calculating the actual lumiance of each char in the font</li><li>Create a simple edge detection algorithm to outline areas of high contrast using <code>|</code>, <code>/</code>¸ <code>-</code>, <code>\</code></li></ul><br>To calculate a luminance value for each letter I created a python script which renders every character using <code>pillow</code>, calculates the luminance and stores it. Chars that have almost the same luminance are thrown out so there is a mostly even distribution.<br><br>The actual rendering is done in C, where I read the image, convert it to gray scale and then use the gray value to determine the luminance (and thus the char) to be rendered.<br><br>For the edge detection I used a simple 2x2 kernel that scans the image, calculating a vector for each cell that points in the direction of the contrast (the details can be found in the implementation), the kernel also calculates the average luminance of the 4 pixel, it then decides whether to draw an edge or luminance char based on the magnitude of the vector and a threshhold that can be modified for different results.<br><br><img src="_images/Pasted image 20250308194318.png"><br><i>Example showing the 2x2 kernel result and source image</i><br><br>More details on the kernel and the entire project can be found in its <a href="https://github.com/nailuj05/asciirendering">repository</a><br>
     </section>
+		<section class="stats-side">
+		<h3>Statistics</h3>
+		<p id="totalVisits">Total Visits: <b>0</b></p>
+		<p id="count30">Visits last 30 days: <b>0</b></p>
+		<p>more stats are on the statistics page!</p>
+		<script>
+		 fetch('https://stats.julianlimburg.zip/stats.php?type=count')
+			 .then(response => response.json())
+				.then(data => document.getElementById("totalVisits").innerHTML
+				= "Total Visits: <b>"+data+"</b>")
+			 .catch(error => console.error('Error fetching data:', error));
+		 fetch('https://stats.julianlimburg.zip/stats.php?type=count30')
+			 .then(response => response.json())
+				.then(data => document.getElementById("count30").innerHTML
+				= "Visits last 30 days: <b>"+data+"</b>")
+			 .catch(error => console.error('Error fetching data:', error));
+		</script>
+</section>
+
   </div>
 
   <footer>

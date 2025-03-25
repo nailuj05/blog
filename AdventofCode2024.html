@@ -4,10 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AdventofCode2024</title>
+  <title>Advent of Code 2024</title>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+	<script src="https://stats.julianlimburg.zip/tracking.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -17,6 +18,7 @@
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="https://github.com/nailuj05">Github</a></li>
+      <li><a href="stats.html">Statistics</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
@@ -48,6 +50,25 @@
       <!-- </article> -->
       <h1>Advent of Code 2024</h1>Advent of Code is an advent calendar of programming puzzles. They can be solved any programming language - only the output/result matters.<br><br>This year I am doing AoC while trying to use as many different programming languages as possible. Both as an exercise and to explore new languages. I will write up my experiences of each day (at least each day I complete) here!<br><br>As always you can find the code in this <a href="https://github.com/nailuj05/aoc24">repository</a> (I will release my solutions the day after)<br><br><hr><br><b>Day 01 - Perl</b><br><br>Using Perl here was really fun. I have never used it before. It feels like pythons older brother.<br>The easy file I/O, list and hash map handling made it a great fit for this task as well. I would also like to explore Perls regex capabilities in a future task.<br><br><br><b>Day 02 - Go</b><br><br>I haven't really used go, except for a short time a few years back. Following a recommendation of a friend I wanted to try it out again. To be honest using Go on today's challenge was not a great experience, I am not sure how much of that is to blame on me though - there are a few caveats where I don't see the benefit (yet?). Slices referencing their source array instead of copying was off-putting in particular. I don't see how this isn't a big source of nasty or annoying bugs, but that might boil down to a skill issue after all.<br><br>This won't be the last time using Go, and I am looking forward to fully exploring the language and getting my hands dirty with it.<br><br><b>Day 03 - Perl (again)</b><br><br>I originally wanted to do this in C, but halfway through my implementation of a state machine I recognized that I was basically reinventing the wheel here (and by wheel I mean Regex) - so I just switched to Perl. Using Perls excellent regex support both tasks were solved in less lines of code than my half-baked state machine for just the first task in C.<br><br><br>.... and that was it for this year, I did not find the time to participate further this year, maybe next time<br>
     </section>
+		<section class="stats-side">
+		<h3>Statistics</h3>
+		<p id="totalVisits">Total Visits: <b>0</b></p>
+		<p id="count30">Visits last 30 days: <b>0</b></p>
+		<p>more stats are on the statistics page!</p>
+		<script>
+		 fetch('https://stats.julianlimburg.zip/stats.php?type=count')
+			 .then(response => response.json())
+				.then(data => document.getElementById("totalVisits").innerHTML
+				= "Total Visits: <b>"+data+"</b>")
+			 .catch(error => console.error('Error fetching data:', error));
+		 fetch('https://stats.julianlimburg.zip/stats.php?type=count30')
+			 .then(response => response.json())
+				.then(data => document.getElementById("count30").innerHTML
+				= "Visits last 30 days: <b>"+data+"</b>")
+			 .catch(error => console.error('Error fetching data:', error));
+		</script>
+</section>
+
   </div>
 
   <footer>

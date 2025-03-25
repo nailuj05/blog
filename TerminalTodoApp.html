@@ -4,10 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TerminalTodoApp</title>
+  <title>Terminal Todo App</title>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+	<script src="https://stats.julianlimburg.zip/tracking.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -17,6 +18,7 @@
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="https://github.com/nailuj05">Github</a></li>
+      <li><a href="stats.html">Statistics</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
@@ -48,6 +50,25 @@
       <!-- </article> -->
       <h1>Terminal Todo App</h1><br>I have todo lists everywhere, on my phone, on the web, on my PC, in my note-taking app etc...<br>So why not build another one? One that I actually see on a daily basis.<br>I wanted to keep this project small and simple, something that can be done in an hour. In that spirit I wanted to work in C, for persistent storage I wanted to use a database. Having never worked with databases outside of web applications, I was looking forward to getting some experience in that regard.<br><br><img src="_images/Pasted image 20241110234231.png"><br><br>I set a goal to keep it minimal, with just the basics: add, list, delete tasks, and a reset option.<br><br>The <code>todo_init</code> function sets up a database file, creating a <code>todos</code> table with <code>id</code> and <code>task</code> columns if it doesn’t already exist. This ensures data persists between uses, which is critical for a lightweight task manager like this. Adding tasks is done with a parameterized SQL query for security, and each task is assigned a unique ID, making them easy to refer back to.<br><br>The program uses simple CLI commands: <code>add</code> adds a new task, <code>ls</code> lists all tasks, <code>del</code> removes a task by ID, and <code>reset</code> clears the database. Listing tasks is a quick SQL query, and deletion uses a bound parameter for the ID to prevent mistakes or injections.<br><br>In the end, this quick project turned out exactly as I hoped: a straightforward, always-visible todo list that got me comfortable with SQLite in C, all in just a few lines of code.<br><br>And that's already it, keeping it really short with this blog post, I am working on some bigger (and cooler) projects that I'll soon be able to share.<br><br>In the meantime, check out the repository <a href="https://github.com/nailuj05/todo">here</a><br>
     </section>
+		<section class="stats-side">
+		<h3>Statistics</h3>
+		<p id="totalVisits">Total Visits: <b>0</b></p>
+		<p id="count30">Visits last 30 days: <b>0</b></p>
+		<p>more stats are on the statistics page!</p>
+		<script>
+		 fetch('https://stats.julianlimburg.zip/stats.php?type=count')
+			 .then(response => response.json())
+				.then(data => document.getElementById("totalVisits").innerHTML
+				= "Total Visits: <b>"+data+"</b>")
+			 .catch(error => console.error('Error fetching data:', error));
+		 fetch('https://stats.julianlimburg.zip/stats.php?type=count30')
+			 .then(response => response.json())
+				.then(data => document.getElementById("count30").innerHTML
+				= "Visits last 30 days: <b>"+data+"</b>")
+			 .catch(error => console.error('Error fetching data:', error));
+		</script>
+</section>
+
   </div>
 
   <footer>

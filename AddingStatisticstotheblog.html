@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adding Statistics to the blog</title>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+	<script src="https://stats.julianlimburg.zip/tracking.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="https://github.com/nailuj05">Github</a></li>
+      <li><a href="stats.html">Statistics</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+  <div class="content-wrapper">
+    <details open class="recent-entries">
+      <summary>Recent Blog Entries</summary>
+      <ul>
+        
+<li><a href="AddingStatisticstotheblog.html">Adding Statistics to the blog</a></li>
+<li><a href="AdventofCode2024.html">Advent of Code 2024</a></li>
+<li><a href="Alarmy-EternalTerrariumandAlarmclock.html">Alarmy - Eternal Terrarium and Alarm clock</a></li>
+<li><a href="BuildingCusingC.html">Building C using C</a></li>
+<li><a href="Buildingthisblog.html">Building this blog</a></li>
+<li><a href="Improvingmybootstrappedbuildsystem.html">Improving my bootstrapped build system</a></li>
+<li><a href="MySetup.html">My Setup</a></li>
+<li><a href="Raylib,C,PhysicsandWebAssembly.html">Raylib, C, Physics and WebAssembly</a></li>
+<li><a href="RenderingASCII.html">Rendering ASCII</a></li>
+<li><a href="TerminalTodoApp.html">Terminal Todo App</a></li>
+      </ul>
+    </details>
+
+    <section class="main-text">
+      <!-- <h1>Blog Post Title 1</h1> -->
+      <!-- <p>Posted on [Date]</p> -->
+      <!-- <article> -->
+      <!--   <p>This is the content of your blog post. You can write as much as you want here.</p> -->
+      <!-- </article> -->
+      <h1>Adding Statistics to the blog</h1><blockquote> Previous entry <a href="https://blog.julianlimburg.zip/Buildingthisblog.html">Building this blog</a><br></blockquote><br>Soo, originally I only wanted to improve the styling of code blocks and add syntax highlighting - I realized I put a bunch of screenshots instead of code blocks in my blog posts, mostly due to the code blocks looking so bad previously. Well, let's just say I got side tracked....<br><br>The code block styling itself was just a quick CSS change, the syntax highlighting is done using <code>prism.js</code>, nothing to write a blog post about. I also adjusted the general color scheme of the blog to match my <a href="https://blog.julianlimburg.zip/MySetup.html">Emacs theme</a>. However, opening the blog project again reminded me of the things I still wanted to add, mainly statistics and comments.<br><br>Back then, I only thought about adding something like Google Analytics to the site and call it a day. But I don't really want to give Google a way of tracking users on my site, and a big tracking framework would also be complete overkill for what I need.<br>So this led me to building my own statistics framework, I started out building a simple backend in PHP using sqlite3 as a database, for saving timestamps. Timestamps are collected by a JS script that is run when the page gets opened.<br><br>The backend then only provided a visitor count and a visitor count over the last 30 days, which I can then show as a nice little counter on any blog entry. But just a counter is boring, why not track some cooler data and display it in a nicer way? This is where the side tracking really started...<br><br><img src="_images/Pasted image 20250325024822.png"><br><i>Chart showing the devices used to visit the site (though these accesses were all me)</i><br><br>Using <code>chart.js</code> and some quick changes to the backend, I was able to display both a graph of the visits of the last 30 days and a pie chart of devices used to access my site. Even though I really dislike the JS ecosystem (sourcing dependencies from other CDNs seems insane to me tbh...) I must say this was overall a good experience and got the job done quickly. I experimented with a quick graph renderer in an HTML canvas, but this path would have led me to developing a whole own chart framework, which I really didn't plan on doing....<br><br><img src="_images/Pasted image 20250325024853.png"><br><i>Excerpt of the map view, just showing my visits, so they are all in Germany</i><br><br>When checking out <code>chart.js</code> I also came across this cool looking <a href="https://github.com/sgratzl/chartjs-chart-geo">geo charts plugin</a> which inspired me to add country tracking as well. This isn't as easy as just getting the current time or device of the user, the country is determined by the IP of the client (this is also done client-side only, so no IP addresses get saved or even sent to my server). The API I am using to determine the country from the IP address is rate limited, so not all countries will get tracked (at least on days with lots of traffic), so I might need to find an alternative, but for now it's fine.<br><br>This was another project where I did the backend in PHP, to be honest I am not a big fan of PHP, I think a proper backend needs a language with better static analysis than just an interpreter with an optional linter...<br>However, you can't beat the ease of use with PHP for a small backend like this, you just put your PHP script into your web server's folder, and you are good to go.<br>Same thing goes with using SQLite over something like MySQL for the database, it's easy to use, gets the job done and I like having everything contained in a single DB file.<br><br>In the end, this was just a 2.5 day project, but I think it turned out quite well, and I am really looking forward to seeing the statistics develop over the coming days and weeks.<br>As always, all the code is open source, with the blog <a href="https://github.com/nailuj05/blog">here</a> and the statistics backend <a href=""https://github.com/nailuj05/stats-tracking"">here</a><br><br>
+    </section>
+		<section class="stats-side">
+		<h3>Statistics</h3>
+		<p id="totalVisits">Total Visits: <b>0</b></p>
+		<p id="count30">Visits last 30 days: <b>0</b></p>
+		<p>more stats are on the statistics page!</p>
+		<script>
+		 fetch('https://stats.julianlimburg.zip/stats.php?type=count')
+			 .then(response => response.json())
+				.then(data => document.getElementById("totalVisits").innerHTML
+				= "Total Visits: <b>"+data+"</b>")
+			 .catch(error => console.error('Error fetching data:', error));
+		 fetch('https://stats.julianlimburg.zip/stats.php?type=count30')
+			 .then(response => response.json())
+				.then(data => document.getElementById("count30").innerHTML
+				= "Visits last 30 days: <b>"+data+"</b>")
+			 .catch(error => console.error('Error fetching data:', error));
+		</script>
+</section>
+
+  </div>
+
+  <footer>
+  <p>&copy; 2025 Julian Limburg</p>
+</footer>
+
+</body>
+
+</html>

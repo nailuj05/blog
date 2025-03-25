@@ -25,5 +25,6 @@ However, you can't beat the ease of use with PHP for a small backend like this, 
 Same thing goes with using SQLite over something like MySQL for the database, it's easy to use, gets the job done and I like having everything contained in a single DB file. 
 
 In the end, this was just a 2.5 day project, but I think it turned out quite well, and I am really looking forward to seeing the statistics develop over the coming days and weeks.
-As always, all the code is open source, with the blog [here](https://github.com/nailuj05/blog) and the statistics backend [here]("https://github.com/nailuj05/stats-tracking")
 
+As always, all the code is open source, with the blog [here](https://github.com/nailuj05/blog) and the statistics backend [here]("https://github.com/nailuj05/stats-tracking")
+You can find the blog's statistics [here](https://blog.julianlimburg.zip/stats.html), if you haven't already :)

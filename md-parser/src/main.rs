@@ -37,7 +37,7 @@ fn main() {
 
             let entries_page = construct_entries_page(&mut files);
             for file in &files {
-                let title_link = &file[..file.len() - 3].replace(" ", "");
+                let title_link = &file[..file.len() - 3].replace(" ", "-");
                 let title = &file[..file.len() - 3];
                 let content = parse(src_path.join(file).to_str().unwrap());
                 let html = construct_entry(
@@ -97,7 +97,7 @@ fn construct_entries_page(files: &mut [String]) -> String {
     let entry_links: String = files
         .iter()
         .map(|f| Path::new(f).file_stem().unwrap().to_str().unwrap())
-        .map(|f| format!("<li><a href=\"{}.html\">{}</a></li>", f.replace(" ", ""), f))
+        .map(|f| format!("<li><a href=\"{}.html\">{}</a></li>", f.replace(" ", "-"), f))
         .fold("".to_string(), |acc, s| acc + "\n" + s.as_str());
 
     format!(

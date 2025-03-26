@@ -1,8 +1,8 @@
 # Improving my bootstrapped build system
-> Previous entry: [Building C using C](https://blog.julianlimburg.zip/BuildingCusingC.html)
+> Previous entry: [[Building C using C]]
 
 With some more free time on my hands I finally have time to work on some fun stuff again - and while doing so, I often came back to my build system to change and improve it. 
-I previously wrote a blog entry about it, you can find [here](https://blog.julianlimburg.zip/BuildingCusingC.html). The general idea of the build system remains the same, I recommend reading my previous post if you are not familiar.
+I previously wrote a blog entry about it, you can find [[Building C using C|here]]. The general idea of the build system remains the same, I recommend reading my previous post if you are not familiar.
 
 ![[Pasted image 20250314235858.png]]
 *Example of noob implementation*
@@ -15,3 +15,7 @@ For better usability I also created two sh script, which I also added to my shel
 
 Lastly, I made it so that noob will always be executed from the directory the executable lies in, not the directory you call it from (as would be the case usually). This allows relative paths to still function even if you call noob from somewhere else. 
 For example, I had the issue where I was editing a file inside a `src/` directory, but noob was implemented in the root directory of the project. Without this addition, calling noob like this `./../noob` wouldn't work, and you'd had to `cd` back up - well not any longer.
+
+I also experimented with using noob as a basic preprocessor, you can find that in my [[Creating a Stack Based Programming Language|stack based programming language]]. 
+
+You can find the repo for everything [here](https://github.com/nailuj05/noob)

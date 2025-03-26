@@ -25,7 +25,7 @@ Raylib also offers WebAssembly as a compilation backend, it is pretty straight f
 
 The application itself only needed minor changes, due to the way browsers work you cannot simply put your games main loop into the standard `while(!WindowShouldClose())` as you would usually do using Raylib. Instead, you'll refactor your main loop into a separate function which can then be called by the emscripten loop handler.
 
-For compiling it all I added a `web`-flag to my noob build system.
+For compiling it all I added a `web`-flag to my [[Building C using C|noob]] build system.
 
 With that done all that was left to do was deployin to GitHub Pages and writing this post. You can check it all out here:
 

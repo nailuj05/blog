@@ -39,7 +39,7 @@ int main(int argc, const char *argv[]) {
 }
 ```
 
-This is the build script for my [yin-yang](https://blog.julianlimburg.zip/Raylib,%20C,%20Physics%20and%20WebAssembly.html) project.
+This is the build script for my [[Raylib, C, Physics and WebAssembly|yin-yang]] project.
 
 Once the build system is bootstrapped (compiled using just `gcc -o noob noob.c`) you are good to go. You can now run the build by calling noob. Passing `run` will not only compile the raylib project (with all the flags you really don't want to type out manually) and then run the binary.
 

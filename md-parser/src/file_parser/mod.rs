@@ -43,18 +43,24 @@ fn convert_links(input: &str) -> String {
         .replace_all(&output, r#"<a href="$2">$1</a>"#)
         .to_string();
 
-    // Convert file links
+		// Convert file links
     let file_link_regex = Regex::new(r"\[\[([^|\]]+)\]\]").unwrap();
     output = file_link_regex
-        .replace_all(&output, r#"<a href="$1.html">$1</a>"#)
+        .replace_all(&output, |caps: &regex::Captures| {
+            let href = caps[1].replace(' ', "-");
+            format!(r#"<a href="{}.html">{}</a>"#, href, &caps[1])
+        })
         .to_string();
 
     // Convert named file links
     let named_file_link_regex = Regex::new(r"\[\[([^|]+)\|([^]]+)\]\]").unwrap();
     output = named_file_link_regex
-        .replace_all(&output, r#"<a href="$1.html">$2</a>"#)
+        .replace_all(&output, |caps: &regex::Captures| {
+            let href = caps[1].replace(' ', "-");
+            format!(r#"<a href="{}.html">{}</a>"#, href, &caps[2])
+        })
         .to_string();
-
+		
     output
 }
 

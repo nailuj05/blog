@@ -1,5 +1,5 @@
 # Adding Statistics to the blog
-> Previous entry [Building this blog](https://blog.julianlimburg.zip/Buildingthisblog.html)
+> Previous entry [[Building this blog]]
 
 Soo, originally I only wanted to improve the styling of code blocks and add syntax highlighting - I realized I put a bunch of screenshots instead of code blocks in my blog posts, mostly due to the code blocks looking so bad previously. Well, let's just say I got side tracked....
 

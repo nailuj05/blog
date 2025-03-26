@@ -25,6 +25,8 @@ A compiler is usually split into 3 stages, a frontend which transforms the input
 
 I chose to develop the compiler in OCaml, a functional language suits itself quite well to the recursive nature of a compiler (at least for a small compiler like mine).
 
+The language itself is called klaus, its name is a reference to [Staplerfahrer Klaus](https://www.youtube.com/watch?v=dJdCJMyBi5I), a humorous safety video about driving forklifts. "Stapel" means stack in German, but "Stapler" is a forklift.
+
 The initial version of the compiler transformed the source code into an IR which then gets generated into x86-64 assembly, assembled and linked with `libc` (for I/O) turning it into an executable binary. The syntax consisted of labels, operands and possibly some arguments (like a value to push, or a label to jump to).
 
 ```klaus

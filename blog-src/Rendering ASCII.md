@@ -1,7 +1,7 @@
 # Rendering ASCII
 With most exams written I finally found the time to work on some cool projects again, first of which is a Image to ASCII Art converter. 
 
-I first had the idea when checking out [nothings](https://github.com/nothing/stb) single header file libraries, of which `image.h` provides a really simple way for working with all the image formats and does the heavy lifting of working with the different formats for you. 
+I first had the idea when checking out [nothings](https://github.com/nothings/stb) single header file libraries, of which `image.h` provides a really simple way for working with all the image formats and does the heavy lifting of working with the different formats for you. 
 In my previous project [PNGenius](https://github.com/nailuj05/PNGenius) I used `libpng` itself, which was overkill for the simple functionality I actually needed (and used).
 
 For rendering ascii I had to goals:

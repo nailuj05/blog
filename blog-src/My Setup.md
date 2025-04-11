@@ -7,6 +7,9 @@ For most of my work I publish here I use a [Framework 13 Laptop](https://frame.w
 ## Operating System
 I've been daily driving Fedora Linux on my laptop since the beginning, I used Ubuntu, DeepIn, Manjaro and Debian before, with all of them I had some issues, Fedora just worked for me so that's what I stuck with. I also use Windows 10 on my desktop, but I am working on switching to Linux there as well. Working and using Windows is just such a pain with Microsoft seemingly always trying to make the experience worse in any way they can - I am definitely not switching to Windows 11.
 
+**Update:** I am no longer using Windows, Windows Defender slowing my PC to a stop for minutes after each boot, annoying Windows 11 ads all the time and the fact I was doing all my (private) development on my laptop, sitting in front of my desktop, finally made me do the switch. On of the biggest things holding me back was my worry for work-related software not doing well on Linux - up until now it has worked out fine on Linux, I do keep a disk reserved in case I have to use Windows for something again.
+I decided to go for Nobara (a Fedora derivative), as it plays along nicely with Nvidia GPUs and has a lot of the 3rd party dependencies, that I was going to install on Fedora anyway, preinstalled.
+
 ## Desktop
 I started out using Gnome with [Pop Shell](https://github.com/pop-os/shell), which is a tiling window manager for it, on my laptop. After a while I didn't see why I need Gnome just to use it as a Tiling WM, so I switched to Hyprland. I don't have a real preference for Hyprland over i3 or sway.
 Hyprland had all the customizability I was looking for, and I am happy with it. 

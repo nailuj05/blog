@@ -96,3 +96,5 @@ These noise techniques can be used to generate everything from basic textures to
 
 ## 3D
 I did started doing some basic 3D shading, but nothing worth writing a blog post about yet. Once I did some more progress on that I'll amend this post.
+
+As always all code can be found [here](https://github.com/nailuj05/learning-shaders)

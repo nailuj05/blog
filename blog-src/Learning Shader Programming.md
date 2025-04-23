@@ -37,7 +37,7 @@ The shader computes normalized coordinates (`uv`), adjusts for aspect ratio, and
 
 ![[Screenshot_20250410_161713.png]]
 
-In this example, `I plotted f(x)= x^3`, but any function can be substituted. Because all rendering is done on the GPU, it remains highly performant.
+In this example, I plotted `f(x)= x^3`, but any function can be substituted. Because all rendering is done on the GPU, it remains highly performant.
 
 As this only requires a function and its derivative I want to explore this further and dynamically generate a shader from a function entered by a user (and it's calculated derivative).
 
